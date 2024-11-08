@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { auth } from '../../firebase/config'
+import { getAuth } from 'firebase/auth'
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 import './index.css';
 
 const Navbar = ({ setUserId, showStats, setShowStats, showStats2, setShowStats2, showDeviceStats, setShowDeviceStats, showLog, setShowLog }) => {
-    
+    const auth = getAuth();
     const userRole = userInfo['role'];
     const admin = userRole === 'admin';
     const appleS1 = userRole === 'apple';

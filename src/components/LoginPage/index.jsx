@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
-import { auth } from '../../firebase/config';
-import md5 from 'md5';
 
 import './index.css';
 
