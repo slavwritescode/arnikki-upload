@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
-
+import { auth } from '../../firebase/config';
 import './index.css';
 
 function LoginPage({ setUserId }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [hidden, setHidden] = useState(true);
+    const [hidden, setHidden] = useState(false);
 
     const handleLogin = async (e, em, pw) => {
         // if (e) e.preventDefault();
@@ -60,7 +60,7 @@ function LoginPage({ setUserId }) {
 
     return <div id="loginPage">
         {!hidden && <div id="loginContainer">
-            <h2>Project Silverheels</h2>
+            <h2>Project Tokoro</h2>
             <form onSubmit={(e) => handleLogin(e)}>
                 <input
                     id="email"

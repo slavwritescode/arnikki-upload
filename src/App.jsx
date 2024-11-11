@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 import './App.css';
 import Constants from './components/Constants';
 import LoginPage from './components/LoginPage';
@@ -9,6 +9,9 @@ import Navbar from './components/Navbar';
 
 const App = () => {
   const [userId, setUserId] = useState('');
+  const userInfo = useSelector((state) => state.userInfo.value) || {};
+  const role = userInfo['role'];
+  
   function getElement(path) {
 
     switch (path) {

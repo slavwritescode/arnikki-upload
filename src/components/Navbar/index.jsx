@@ -9,7 +9,7 @@ const Navbar = () => {
     const auth = getAuth();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const userInfo = useSelector((state) => state.userInfo.value || {});
+    const userInfo = useSelector((state) => state.userInfo.value) || {};
     const userRole = userInfo['role'];
     
     const handleLogout = async () => {
