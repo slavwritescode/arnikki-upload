@@ -1,9 +1,15 @@
 import { useForm } from "react-hook-form"
 import Swal from "sweetalert2";
 import './index.css';
-import {backend} from '../../firebase/config';
+import {backend, realtimeDb} from '../../firebase/config';
 
 const RegistrationPage = () => {
+    
+    const writeUserDataToDb = async (uid, name) => {
+        const userData = await realtimeDb.ref('/users/' + uid).set({uid: {name: name}});
+        console.log(userData);
+        return userData;
+    }
     const {
         register,
         handleSubmit,
@@ -16,8 +22,20 @@ const RegistrationPage = () => {
         console.log(data.email);
         const register = async()=>{
            const res = await backend('registerNewUser', {email: data.email, password: data.password});
-           console.log(res, 'this is the res');
-           return res;
+           console.log('is the res', res);
+           if(res.data.message){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                footer: res.data.message
+            });
+           }else if(res.data.uid){
+                const newUid = res.data.uid;
+                const name = res.data.name
+                const write = await writeUserDataToDb(newUid, name);
+                console.log(write, 'is write')
+                return write;
+           }    
         }
         register();
     }
