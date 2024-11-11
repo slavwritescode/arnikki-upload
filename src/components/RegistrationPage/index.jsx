@@ -2,7 +2,7 @@ import './index.css';
 
 const RegistrationPage = () => {
     return <div id="header">
-        <img id="telusLogo" src={telus} />
+        
         <div id="mainTitle">Onsite Study Silverheels in Los Angeles, CA</div>
         <div id="projectDescription">
             <p>
