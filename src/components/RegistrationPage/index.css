@@ -22,6 +22,9 @@
     gap: .8em;
     padding: .8em;
 }
+#registrationPage form span{
+    color: red
+}
 
 #registrationPage input[type=text],
 #registrationPage input[type=password] {

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-
+import Swal from "sweetalert2";
 import './index.css';
 
 const RegistrationPage = () => {
@@ -17,20 +17,22 @@ const RegistrationPage = () => {
 
     return <div id="registrationPage">
                 <div id="registrationContainer">
-                    <p>Please enter your information to register for our program</p>
+                    <h3>Please enter your information to register for our program</h3>
                     <form onSubmit={handleSubmit(handleRegistration)}>
                         <input 
                             type="text"
                             placeholder="email"
                             {...register("email", { required: true })} 
                         />
+                        {/*We could potentially fire swal here as well... */}
+                        {errors.email && <span>The email field is mandatory</span>}
                         <input 
                             type="password"
                             placeholder="password"
                             {...register("password", { required: true })} 
                         />
-                        {errors.email && <span>The email field is mandatory</span>}
-                        <button type="submit">Register</button>
+                        {errors.password && <span>The password field is mandatory</span>}
+                        <button type="submit" id="registerButton">Register</button>
                     </form>
                 </div>
             </div>
