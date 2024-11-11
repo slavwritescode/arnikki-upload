@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import Swal from "sweetalert2";
 import './index.css';
+import {backend} from '../../firebase/config';
 
 const RegistrationPage = () => {
     const {
@@ -12,6 +13,13 @@ const RegistrationPage = () => {
 
     const handleRegistration = (data) => {
         console.log(data);
+        console.log(data.email);
+        const register = async()=>{
+           const res = await backend('registerNewUser', {email: data.email, password: data.password});
+           console.log(res, 'this is the res');
+           return res;
+        }
+        register();
     }
     console.log(watch("example"));
 
@@ -22,7 +30,10 @@ const RegistrationPage = () => {
                         <input 
                             type="text"
                             placeholder="email"
-                            {...register("email", { required: true })} 
+                            {...register("email", { required: true, pattern: {
+                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                message: "Invalid email format"
+                            } })} 
                         />
                         {/*We could potentially fire swal here as well... */}
                         {errors.email && <span>The email field is mandatory</span>}

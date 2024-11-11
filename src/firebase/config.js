@@ -18,8 +18,6 @@ const config = {
 
 const app = firebase.initializeApp(config);
 //const auth = firebase.auth();
-const auth = getAuth(app)
-//const db = firebase.firestore();
 
 // Init storage and its services
 const storage = getStorage(app);
@@ -27,9 +25,9 @@ const uploadToStorage = (path, file, metadata) => uploadBytes(ref(storage, path)
 const getFileUrl = (path) => getDownloadURL(ref(storage, path));
 const getFileBlob = (path) => getBlob(ref(storage, path));
 const deleteFile = (path) => deleteObject(ref(storage, path));
-
 // Init services
 //const auth = firebase.auth();
+const auth = getAuth(app);
 const realtimeDb = firebase.database();
 const backend = (functionName, params) => httpsCallable(getFunctions(app), functionName)(params);
 
