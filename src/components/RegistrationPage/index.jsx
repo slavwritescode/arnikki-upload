@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form"
 import Swal from "sweetalert2";
+import BeatLoader from "react-spinners/ClipLoader";
+import { useState } from "react";
+
 import './index.css';
 import {backend, realtimeDb} from '../../firebase/config';
 
 //the error messages can come from constants....
 const RegistrationPage = () => {
-    
-    const writeUserDataToDb = async (uid, name) => {
-        const userData = await realtimeDb.ref('/users/' + uid).set({name: name});
+    const [isRegistering, setIsRegistering] = useState(false);
+    const writeUserDataToDb = async (uid, name, role) => {
+        const userData = await realtimeDb.ref('/users/' + uid).set({name: name, role: role});
         console.log(userData);
         return userData;
     }
@@ -22,7 +25,8 @@ const RegistrationPage = () => {
     const handleRegistration = (data) => {
        
         const register = async()=>{
-           const res = await backend('registerNewUser', {email: data.email, name: data.name});
+           setIsRegistering(true);
+           const res = await backend('registerNewUser', {email: data.email, name: data.name, role: data.role});
            
            if(res.data.message){
             Swal.fire({
@@ -32,10 +36,10 @@ const RegistrationPage = () => {
             });
            }else if(res.data.uid){
                 const newUid = res.data.uid;
-                const name = res.data.name
-                console.log(name, newUid, 'uid and name...')
-                const write = await writeUserDataToDb(newUid, name);
-                console.log(write, 'is write')
+                const name = res.data.name;
+                const role = res.data.role;
+                const write = await writeUserDataToDb(newUid, name, role);
+                setIsRegistering(false);
                 return write;
            }    
         }
@@ -64,18 +68,18 @@ const RegistrationPage = () => {
                         />
                         {errors.name && <span>The name field is mandatory</span>}
                         <select {...register("role", {required: true})} defaultValue="">
-                            <option value="option" disabled>Please select an option</option>
+                            <option value="" disabled>Please select an option</option>
                             <option value="admin">Admin</option>
                             <option value="moderator">Moderator</option>
                         </select>
-                        {errors.name && <span>The role dropdown is mandatory</span>}
+                        {errors.role && <span>The role dropdown is mandatory</span>}
                         <input 
                             type="password"
                             placeholder="password"
                             {...register("password", { required: true })} 
                         />
                         {errors.password && <span>The password field is mandatory</span>}
-                        <button type="submit" id="registerButton">Register</button>
+                        {isRegistering ? <BeatLoader size={10}/> : <button type="submit" id="registerButton">Register</button>}
                     </form>
                 </div>
             </div>
