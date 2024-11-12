@@ -1,16 +1,19 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState, useRef } from "react";
 import { realtimeDb } from "../../firebase/config";
-
+import { useSelector, useDispatch } from "react-redux";
 import VideoPreview from "./VideoPreview";
+import { updateUserInfo } from "../../redux/Features";
+
 import './index.css';
 
 const VideoTagging = () => {
   const [videoFile, setVideoFile] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
   const [allUploadedVideos, setAllUploadedVideos] = useState(null);
-
   const fileName = useRef(null);
+  const userInfo = useSelector((state) => state.userId.value) || {};
+  const userId = userInfo['userId'];
   const {
     register,
     handleSubmit,
@@ -18,6 +21,7 @@ const VideoTagging = () => {
     formState: { errors },
   } = useForm();
 
+  const dispath = useDispatch();
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith('video/')) {
@@ -36,7 +40,17 @@ const VideoTagging = () => {
   }
 
   useEffect(() => {
+    const listAllVidoes = async () => {
+      let mainQuery = realtimeDb.ref('/videos');
+      //it is going to be equal to whatever the id
 
+      mainQuery = mainQuery.orderByChild('moderator').equalTo(userId);
+      mainQuery.on('value', (data) => {
+        const videoData = data.val() || {};
+        setAllUploadedVideos(videoData);
+      })
+      const videos = await realtimeDb.ref('/')
+    }
   })
   return (
     <div id="videoTaggingPage">
