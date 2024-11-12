@@ -6,7 +6,7 @@ import {backend, realtimeDb} from '../../firebase/config';
 const RegistrationPage = () => {
     
     const writeUserDataToDb = async (uid, name) => {
-        const userData = await realtimeDb.ref('/users/' + uid).set({uid: {name: name}});
+        const userData = await realtimeDb.ref('/users/' + uid).set({name: name});
         console.log(userData);
         return userData;
     }
@@ -18,11 +18,10 @@ const RegistrationPage = () => {
       } = useForm();
 
     const handleRegistration = (data) => {
-        console.log(data);
-        console.log(data.email);
+       
         const register = async()=>{
-           const res = await backend('registerNewUser', {email: data.email, password: data.password});
-           console.log('is the res', res);
+           const res = await backend('registerNewUser', {email: data.email, name: data.name});
+           
            if(res.data.message){
             Swal.fire({
                 icon: 'error',
@@ -32,6 +31,7 @@ const RegistrationPage = () => {
            }else if(res.data.uid){
                 const newUid = res.data.uid;
                 const name = res.data.name
+                console.log(name, newUid, 'uid and name...')
                 const write = await writeUserDataToDb(newUid, name);
                 console.log(write, 'is write')
                 return write;
@@ -55,6 +55,16 @@ const RegistrationPage = () => {
                         />
                         {/*We could potentially fire swal here as well... */}
                         {errors.email && <span>The email field is mandatory</span>}
+                        <input 
+                            type="text"
+                            placeholder="name"
+                            {...register("name", { required: true })} 
+                        />
+                        {errors.name && <span>The name field is mandatory</span>}
+                        <select {...register("role")}>
+                            <option value="admin">Admin</option>
+                            <option value="moderator" selected>Moderator</option>
+                        </select>
                         <input 
                             type="password"
                             placeholder="password"

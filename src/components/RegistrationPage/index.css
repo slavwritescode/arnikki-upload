@@ -27,7 +27,8 @@
 }
 
 #registrationPage input[type=text],
-#registrationPage input[type=password] {
+#registrationPage input[type=password],
+#registrationPage select, input {
     border: 0px;
     padding: .2em .5em;
     font-size: 1.1em;
