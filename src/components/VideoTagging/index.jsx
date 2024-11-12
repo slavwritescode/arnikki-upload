@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import './index.css';
 
 const VideoTagging = () => {
   const [videoFile, setVideoFile] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
+  const fileName = useRef(null);
   const {
     register,
     handleSubmit,
@@ -19,6 +20,9 @@ const VideoTagging = () => {
 
   const removeFile = () => {
     setVideoFile(null);
+    if(fileName.current){
+      fileName.current.value = '';
+    }
   }
 
   useEffect(()=>{
@@ -45,7 +49,9 @@ const VideoTagging = () => {
           type="file" 
           id="video_file" 
           name="video_file" 
-          accept="video/mov" />
+          accept="video/mov"
+          ref={fileName} 
+          />
         </form>
         
       </div>
