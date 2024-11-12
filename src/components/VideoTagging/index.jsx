@@ -13,7 +13,12 @@ const VideoTagging = () => {
 
   })
   return (
-    <div>
+    <div id="videoTaggingPage">
+      {/**have a list for all previous uploaded videos */}
+      <div id="allVideosByUserContainer">
+
+      </div>
+      <div id="uploadVideoContainer">
         <p>All recently uploaded videos</p>
         {/**have a form for uploading a video */}
         <form>
@@ -24,8 +29,8 @@ const VideoTagging = () => {
           name="video_file" 
           accept="image/png, image/jpeg" />
         </form>
-
-        {/**have a list for all previous uploaded videos */}
+      </div>
+        
 
 
     </div>
