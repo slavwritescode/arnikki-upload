@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form"
 import Swal from "sweetalert2";
 import BeatLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateUserInfo } from "../../redux/Features";
 
 import './index.css';
 import {backend, realtimeDb} from '../../firebase/config';
@@ -9,10 +12,21 @@ import {backend, realtimeDb} from '../../firebase/config';
 //the error messages can come from constants....
 const RegistrationPage = () => {
     const [isRegistering, setIsRegistering] = useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const temp = {};
+
     const writeUserDataToDb = async (uid, name, role) => {
-        const userData = await realtimeDb.ref('/users/' + uid).set({name: name, role: role});
-        console.log(userData);
-        return userData;
+        
+        const userRef = await realtimeDb.ref('/users/' + uid).set({name: name, role: role});
+        userRef.on('value', (snapshot) => {
+            temp['role'] = role;
+            dispatch(updateUserInfo(temp))
+            navigate('/video-tagging');
+            setIsRegistering(false);    
+        });
+        
+        return userRef;
     }
     //watch is not used right now but it CAN be used to monitor value, instead of console.logs...
     const {
@@ -39,7 +53,6 @@ const RegistrationPage = () => {
                 const name = res.data.name;
                 const role = res.data.role;
                 const write = await writeUserDataToDb(newUid, name, role);
-                setIsRegistering(false);
                 return write;
            }    
         }

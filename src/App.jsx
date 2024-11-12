@@ -5,6 +5,7 @@ import './App.css';
 import Constants from './components/Constants';
 import LoginPage from './components/LoginPage';
 import RegistrationPage from './components/RegistrationPage';
+import VideoTagging from './components/VideoTagging';
 import Navbar from './components/Navbar';
 
 const App = () => {
@@ -21,6 +22,8 @@ const App = () => {
         return <LoginPage setUserId={setUserId} />;
       case "/registration-form":
         return <RegistrationPage />;
+      case "/video-tagging":
+        return <VideoTagging />;
       default:
         return null;
     }
@@ -41,8 +44,8 @@ const App = () => {
     <Routes>
       <Route path="/" element={getElement("/registration-form")} />
       <Route path="/registration-form" element={getElement("/registration-form")} />
-      <Route path="/login" element={(userId && Object.keys(userInfo || {}).length > 0) ? getElement("/qa-tool") : getElement("/login")} />
-      <Route path="/review-video" element={(userId && Object.keys(userInfo || {}).length > 0) ? getElement("/participants") : getElement("/login")} />
+      <Route path="/login" element={getElement("/login")} />
+      <Route path="/video-tagging" element={(userId && Object.keys(userInfo || {}).length > 0) ? getElement("/video-tagging") : getElement("/login")} />
     </Routes>
     
   </div>
