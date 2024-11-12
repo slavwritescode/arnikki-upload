@@ -21,7 +21,7 @@ const App = () => {
       case "/login":
         return <LoginPage setUserId={setUserId} />;
       case "/registration-form":
-        return <RegistrationPage />;
+        return <RegistrationPage setUserId={setUserId}/>;
       case "/video-tagging":
         return <VideoTagging />;
       default:
@@ -31,7 +31,7 @@ const App = () => {
 
   return <div id="mainApplication">
     {<Navbar
-      // setUserId={setUserId}
+      setUserId={setUserId}
       // showStats={showStats}
       // setShowStats={setShowStats}
       // showStats2={showStats2}
@@ -45,8 +45,10 @@ const App = () => {
       <Route path="/" element={getElement("/registration-form")} />
       <Route path="/registration-form" element={getElement("/registration-form")} />
       <Route path="/login" element={getElement("/login")} />
-      <Route path="/video-tagging" element={(userId && Object.keys(userInfo || {}).length > 0) ? getElement("/video-tagging") : getElement("/login")} />
+      {/* <Route path="/video-tagging" element={(Object.keys(userInfo || {}).length > 0) ? getElement("/video-tagging") : getElement("/login")} /> */}
+      <Route path="/video-tagging" element={getElement("/video-tagging")} />
     </Routes>
+
     
   </div>
 }

@@ -17,8 +17,9 @@ const RegistrationPage = () => {
     const temp = {};
 
     const writeUserDataToDb = async (uid, name, role) => {
-        
-        const userRef = await realtimeDb.ref('/users/' + uid).set({name: name, role: role});
+
+        const userRef = realtimeDb.ref('/users/' + uid);
+        await userRef.set({name: name, role: role});
         userRef.on('value', (snapshot) => {
             temp['role'] = role;
             dispatch(updateUserInfo(temp))
@@ -34,7 +35,7 @@ const RegistrationPage = () => {
         handleSubmit,
         watch,
         formState: { errors },
-      } = useForm();
+    } = useForm();
 
     const handleRegistration = (data) => {
        

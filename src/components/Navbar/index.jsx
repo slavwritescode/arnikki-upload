@@ -2,10 +2,11 @@ import { auth } from '../../firebase/config';
 import { signOut, getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateUserInfo } from '../../redux/Features';
 
 import './index.css';
 
-const Navbar = () => {
+const Navbar = ({setUserId}) => {
     const auth = getAuth();
     const navigate = useNavigate();
     const dispatch = useDispatch();

@@ -2,13 +2,23 @@ import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
 import { auth } from '../../firebase/config';
+import { useForm } from "react-hook-form"
+
 import './index.css';
 
 function LoginPage({ setUserId }) {
     
     const [hidden, setHidden] = useState(false);
+    
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
 
-    const handleLogin = async (e, em, pw) => {
+    const handleLogin = (data) => {
+        
         // if (e) e.preventDefault();
         // if (!em) em = email;
         // if (!pw) pw = password;
@@ -31,6 +41,7 @@ function LoginPage({ setUserId }) {
         // }
     }
 
+    //would you like to have a reset pass function? I mean it would not hurt to have it...
     const resetPassword = () => {
 
         // const auth = getAuth();
@@ -58,8 +69,24 @@ function LoginPage({ setUserId }) {
     }, []);
 
     return <div id="loginPage">
+        
         {!hidden && <div id="loginContainer">
-           <form>
+           <h3>Login here</h3>
+           <form onSubmit={handleSubmit(handleLogin)}>
+           <input 
+                type="text"
+                placeholder="email"
+                {...register("email", { required: true})} 
+            />
+            {/*We could potentially fire swal here as well... */}
+            {errors.email && <span>The email field is mandatory</span>}
+            <input 
+                type="password"
+                placeholder="password"
+                {...register("password", { required: true})} 
+            />
+            {/*We could potentially fire swal here as well... */}
+            {errors.email && <span>The email field is mandatory</span>}
             </form>
         </div>}
     </div>
