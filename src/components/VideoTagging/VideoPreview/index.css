@@ -1,0 +1,16 @@
+#videoPreview {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#videoButtonsContainer {
+    display: flex;
+    gap: 2em;
+    margin: 1em;
+}
+
+#videoButtonContainer button {
+    margin: 2em;
+}
