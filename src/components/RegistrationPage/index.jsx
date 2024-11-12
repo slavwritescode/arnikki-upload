@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import './index.css';
 import {backend, realtimeDb} from '../../firebase/config';
 
+//the error messages can come from constants....
 const RegistrationPage = () => {
     
     const writeUserDataToDb = async (uid, name) => {
@@ -10,6 +11,7 @@ const RegistrationPage = () => {
         console.log(userData);
         return userData;
     }
+    //watch is not used right now but it CAN be used to monitor value, instead of console.logs...
     const {
         register,
         handleSubmit,
@@ -39,7 +41,7 @@ const RegistrationPage = () => {
         }
         register();
     }
-    console.log(watch("example"));
+    
 
     return <div id="registrationPage">
                 <div id="registrationContainer">
@@ -61,10 +63,12 @@ const RegistrationPage = () => {
                             {...register("name", { required: true })} 
                         />
                         {errors.name && <span>The name field is mandatory</span>}
-                        <select {...register("role")}>
+                        <select {...register("role", {required: true})} defaultValue="">
+                            <option value="option" disabled>Please select an option</option>
                             <option value="admin">Admin</option>
-                            <option value="moderator" selected>Moderator</option>
+                            <option value="moderator">Moderator</option>
                         </select>
+                        {errors.name && <span>The role dropdown is mandatory</span>}
                         <input 
                             type="password"
                             placeholder="password"
