@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import './index.css';
 
 function LoginPage({ setUserId }) {
-
+    // const auth = getAuth();
     const [hidden, setHidden] = useState(false);
 
     const {
@@ -26,7 +26,9 @@ function LoginPage({ setUserId }) {
             //in production perhaps this VV
             // if (data.email.toString().endsWith('@telusinternational.com'))
             if (data.email) {
-                console.log('test...');
+                console.log('email', data.email);
+                console.log('password', data.password);
+                console.log('auth', auth);
                 await signInWithEmailAndPassword(auth, data.email, data.password);
             }
         } catch (error) {
@@ -34,7 +36,7 @@ function LoginPage({ setUserId }) {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Error Signing In',
-                footer: error
+                footer: `${error.code} + ${error.message}`
             });
         }
         // try {

@@ -16,14 +16,15 @@ const RegistrationPage = () => {
     const dispatch = useDispatch();
     const temp = {};
 
-    const writeUserDataToDb = async (uid, name, role) => {
+    const writeUserDataToDb = async (uid, name, role, userId) => {
 
         const userRef = realtimeDb.ref('/users/' + uid);
-        await userRef.set({ name: name, role: role });
+        await userRef.set({ name: name, role: role, userId: userId });
         userRef.on('value', (snapshot) => {
             //console.log(snapshot.val())
-            // temp['role'] = role;
-            // dispatch(updateUserInfo(temp))
+            temp['role'] = role;
+            temp['userId'] = userId;
+            dispatch(updateUserInfo(temp))
             navigate('/video-tagging');
             setIsRegistering(false);
         });
@@ -56,9 +57,10 @@ const RegistrationPage = () => {
                 const name = res.data.name;
                 const role = res.data.role;
                 const userId = res.data.userId;
-                temp['role'] = role;
-                temp['userId'] = newUid;
-                dispatch(updateUserInfo(temp))
+                //lets change the dispatch location
+                // temp['role'] = role;
+                // temp['userId'] = userId;
+                // dispatch(updateUserInfo(temp))
                 //todo
                 const write = await writeUserDataToDb(newUid, name, role, userId);
                 return write;

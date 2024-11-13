@@ -11,9 +11,13 @@ const VideoTagging = () => {
   const [videoFile, setVideoFile] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
   const [allUploadedVideos, setAllUploadedVideos] = useState(null);
+  const [error, setError] = useState();
+
   const fileName = useRef(null);
-  const userInfo = useSelector((state) => state.value) || {};
+  const userInfo = useSelector((state) => state.userInfo.value) || {};
   const userId = userInfo['userId'];
+  console.log('userInfo is', userInfo);
+  console.log('userId is:', userId);
   const {
     register,
     handleSubmit,
@@ -41,26 +45,39 @@ const VideoTagging = () => {
 
   useEffect(() => {
     const listAllVidoes = async () => {
+      console.log()
       let mainQuery = realtimeDb.ref('/videos');
       //it is going to be equal to whatever the id
-
-      mainQuery = mainQuery.orderByChild('moderator').equalTo(userId);
-      mainQuery.on('value', (data) => {
-        const videoData = data.val() || {};
-        setAllUploadedVideos(videoData);
-      })
+      console.log('mainQuery before try catch', mainQuery);
+      try {
+        mainQuery = mainQuery.orderByChild('moderator').equalTo(userId);
+        mainQuery.on('value', (data) => {
+          const videoData = data.val() || {};
+          setAllUploadedVideos(videoData);
+        })
+      } catch (error) {
+        setError(error.message);
+      }
       // const videos = await realtimeDb.ref('/')
     }
-    listAllVidoes();
-  })
+    if (userId) {
+      listAllVidoes();
+    }
+  }, [userId])
   return (
     <div id="videoTaggingPage">
       {/**have a list for all previous uploaded videos */}
       <div id="allVideosByUserContainer">
-        <p>All recently uploaded videos</p>
-        <ul className="allVideosList">
-
-        </ul>
+        <h3>All recently uploaded videos</h3>
+        {error
+          ? <p>An error occured when displaying the videos you have recently uploaded</p>
+          : <ul className="allVideosList">
+            {Object.entries(allUploadedVideos).map(singleVideo => {
+              const keyIdentifier = singleVideo[0];
+              const data = singleVideo[1];
+              return <li key={keyIdentifier}>Date: {data.date} Moderator: {data.moderator}</li>
+            })}
+          </ul>}
       </div>
       <div id="uploadVideoContainer">
         {/**have a form for uploading a video */}
