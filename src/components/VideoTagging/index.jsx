@@ -12,7 +12,7 @@ const VideoTagging = () => {
   const [videoUrl, setVideoUrl] = useState(null);
   const [allUploadedVideos, setAllUploadedVideos] = useState(null);
   const fileName = useRef(null);
-  const userInfo = useSelector((state) => state.userId.value) || {};
+  const userInfo = useSelector((state) => state.value) || {};
   const userId = userInfo['userId'];
   const {
     register,
@@ -49,8 +49,9 @@ const VideoTagging = () => {
         const videoData = data.val() || {};
         setAllUploadedVideos(videoData);
       })
-      const videos = await realtimeDb.ref('/')
+      // const videos = await realtimeDb.ref('/')
     }
+    listAllVidoes();
   })
   return (
     <div id="videoTaggingPage">

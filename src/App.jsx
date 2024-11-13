@@ -12,7 +12,7 @@ const App = () => {
   const [userId, setUserId] = useState('');
   const userInfo = useSelector((state) => state.userInfo.value) || {};
   const role = userInfo['role'];
-  
+
   function getElement(path) {
 
     switch (path) {
@@ -21,7 +21,7 @@ const App = () => {
       case "/login":
         return <LoginPage setUserId={setUserId} />;
       case "/registration-form":
-        return <RegistrationPage setUserId={setUserId}/>;
+        return <RegistrationPage setUserId={setUserId} />;
       case "/video-tagging":
         return <VideoTagging />;
       default:
@@ -32,24 +32,24 @@ const App = () => {
   return <div id="mainApplication">
     {<Navbar
       setUserId={setUserId}
-      // showStats={showStats}
-      // setShowStats={setShowStats}
-      // showStats2={showStats2}
-      // setShowStats2={setShowStats2}
-      // showDeviceStats={showDeviceStats}
-      // setShowDeviceStats={setShowDeviceStats}
-      // showLog={showLog}
-      // setShowLog={setShowLog}
+    // showStats={showStats}
+    // setShowStats={setShowStats}
+    // showStats2={showStats2}
+    // setShowStats2={setShowStats2}
+    // showDeviceStats={showDeviceStats}
+    // setShowDeviceStats={setShowDeviceStats}
+    // showLog={showLog}
+    // setShowLog={setShowLog}
     />}
     <Routes>
       <Route path="/" element={getElement("/registration-form")} />
       <Route path="/registration-form" element={getElement("/registration-form")} />
       <Route path="/login" element={getElement("/login")} />
-      {/* <Route path="/video-tagging" element={(Object.keys(userInfo || {}).length > 0) ? getElement("/video-tagging") : getElement("/login")} /> */}
-      <Route path="/video-tagging" element={getElement("/video-tagging")} />
+      <Route path="/video-tagging" element={(Object.keys(userInfo || {}).length > 0) ? getElement("/video-tagging") : getElement("/login")} />
+      {/* <Route path="/video-tagging" element={getElement("/video-tagging")} /> */}
     </Routes>
 
-    
+
   </div>
 }
 
