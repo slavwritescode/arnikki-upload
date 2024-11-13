@@ -35,6 +35,7 @@ const RegistrationPage = () => {
         register,
         handleSubmit,
         watch,
+        getValues,
         formState: { errors },
     } = useForm();
 
@@ -67,7 +68,7 @@ const RegistrationPage = () => {
 
     return <div id="registrationPage">
         <div id="registrationContainer">
-            <h3>Please enter your information to register for our program</h3>
+            <h3>Create a new moderator</h3>
             <form onSubmit={handleSubmit(handleRegistration)}>
                 <input
                     type="text"
@@ -93,12 +94,24 @@ const RegistrationPage = () => {
                     <option value="moderator">Moderator</option>
                 </select>
                 {errors.role && <span>The role dropdown is mandatory</span>}
+                {/**perhaps to not drive admins crazy both the passwords should be clearly readable not hidden... */}
                 <input
-                    type="password"
+                    type="text"
                     placeholder="password"
                     {...register("password", { required: true })}
                 />
                 {errors.password && <span>The password field is mandatory</span>}
+                <input
+                    type="text"
+                    placeholder="retype password"
+                    {...register("passwordRetype", {
+                        validate: (value) => {
+                            const { password } = getValues();
+                            return password === value || "Passwords should match";
+                        }
+                    })}
+                />
+                {errors.passwordRetype && <span>{errors.passwordRetype.message}</span>}
                 {isRegistering ? <BeatLoader size={10} /> : <button type="submit" id="registerButton">Register</button>}
             </form>
         </div>
