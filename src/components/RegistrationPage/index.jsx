@@ -44,7 +44,7 @@ const RegistrationPage = () => {
         const register = async () => {
             setIsRegistering(true);
             const res = await backend('registerNewUser', { email: data.email, name: data.name, role: data.role });
-
+            console.log('this is the res', res);
             if (res.data.message) {
                 Swal.fire({
                     icon: 'error',
@@ -55,10 +55,12 @@ const RegistrationPage = () => {
                 const newUid = res.data.uid;
                 const name = res.data.name;
                 const role = res.data.role;
+                const userId = res.data.userId;
                 temp['role'] = role;
                 temp['userId'] = newUid;
                 dispatch(updateUserInfo(temp))
-                const write = await writeUserDataToDb(newUid, name, role);
+                //todo
+                const write = await writeUserDataToDb(newUid, name, role, userId);
                 return write;
             }
         }
