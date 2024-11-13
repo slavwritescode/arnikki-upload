@@ -29,7 +29,7 @@ const App = () => {
     }
   }
 
-  return <div id="mainApplication">
+  return <div>
     {<Navbar
       setUserId={setUserId}
     // showStats={showStats}
