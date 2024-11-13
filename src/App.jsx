@@ -43,9 +43,10 @@ const App = () => {
     />}
     <Routes>
       <Route path="/" element={getElement("/registration-form")} />
+      {/* <Route path="/registration-form" element={role === 'admin' && (Object.keys(userInfo || {}).length > 0) ? getElement("/registration-form") : getElement("/login")} /> */}
       <Route path="/registration-form" element={getElement("/registration-form")} />
       <Route path="/login" element={getElement("/login")} />
-      <Route path="/video-tagging" element={(Object.keys(userInfo || {}).length > 0) ? getElement("/video-tagging") : getElement("/login")} />
+      <Route path="/video-tagging" element={role === 'admin' && (Object.keys(userInfo || {}).length > 0) ? getElement("/video-tagging") : getElement("/login")} />
       {/* <Route path="/video-tagging" element={getElement("/video-tagging")} /> */}
     </Routes>
 

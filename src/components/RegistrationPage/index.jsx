@@ -68,7 +68,7 @@ const RegistrationPage = () => {
 
     return <div id="registrationPage">
         <div id="registrationContainer">
-            <h3>Create a new moderator</h3>
+            <h3>Register new moderator</h3>
             <form onSubmit={handleSubmit(handleRegistration)}>
                 <input
                     type="text"

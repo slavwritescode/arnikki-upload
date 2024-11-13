@@ -7,9 +7,9 @@ import { useForm } from "react-hook-form"
 import './index.css';
 
 function LoginPage({ setUserId }) {
-    
+
     const [hidden, setHidden] = useState(false);
-    
+
     const {
         register,
         handleSubmit,
@@ -17,12 +17,26 @@ function LoginPage({ setUserId }) {
         formState: { errors },
     } = useForm();
 
-    const handleLogin = (data) => {
-        
+    const handleLogin = async (data) => {
+        console.log(data, 'this is the data in login');
         // if (e) e.preventDefault();
         // if (!em) em = email;
         // if (!pw) pw = password;
-
+        try {
+            //in production perhaps this VV
+            // if (data.email.toString().endsWith('@telusinternational.com'))
+            if (data.email) {
+                console.log('test...');
+                await signInWithEmailAndPassword(auth, data.email, data.password);
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error Signing In',
+                footer: error
+            });
+        }
         // try {
         //     if ((em || '').toString().endsWith('@telusinternational.com')) {
         //         await signInWithEmailAndPassword(auth, em, pw);
@@ -69,24 +83,25 @@ function LoginPage({ setUserId }) {
     }, []);
 
     return <div id="loginPage">
-        
+
         {!hidden && <div id="loginContainer">
-           <h3>Login here</h3>
-           <form onSubmit={handleSubmit(handleLogin)}>
-           <input 
-                type="text"
-                placeholder="email"
-                {...register("email", { required: true})} 
-            />
-            {/*We could potentially fire swal here as well... */}
-            {errors.email && <span>The email field is mandatory</span>}
-            <input 
-                type="password"
-                placeholder="password"
-                {...register("password", { required: true})} 
-            />
-            {/*We could potentially fire swal here as well... */}
-            {errors.email && <span>The email field is mandatory</span>}
+            <h3>Login</h3>
+            <form onSubmit={handleSubmit(handleLogin)}>
+                <input
+                    type="text"
+                    placeholder="email"
+                    {...register("email", { required: true })}
+                />
+                {/*We could potentially fire swal here as well... */}
+                {errors.email && <span>The email field is mandatory</span>}
+                <input
+                    type="password"
+                    placeholder="password"
+                    {...register("password", { required: true })}
+                />
+                {/*We could potentially fire swal here as well... */}
+                {errors.email && <span>The email field is mandatory</span>}
+                <button type="submit" id="loginButton">Login Now</button>
             </form>
         </div>}
     </div>
