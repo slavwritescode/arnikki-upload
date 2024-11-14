@@ -34,11 +34,15 @@ const VideoPreview = ({ videoUrl }) => {
             <button onClick={confirmVideoUpload}>Confirm Video Upload</button>
         </div> */}
         <form onSubmit={handleSubmit(review)}>
-            <select>
-                {console.log(Object.values(Constants['scenarios']))}
+            <select
+                {...register("scenarios", {
+                    required: true,
+                    message: "Select a relevant scenario"
+                })}
+            >
                 {Object.values(Constants['scenarios']).map((scenarioItem) => <option key={scenarioItem}>{scenarioItem}</option>)}
-
             </select>
+            <button type="submit" id="reviewButton">Confirm selections</button>
         </form>
     </div>)
 }
