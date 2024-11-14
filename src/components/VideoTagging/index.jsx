@@ -67,15 +67,18 @@ const VideoTagging = () => {
   return (
     <div id="videoTaggingPage">
       {/**have a list for all previous uploaded videos */}
+      <h3>All recently uploaded videos</h3>
       <div id="videoContainer">
-        <h3>All recently uploaded videos</h3>
         {error
           ? <p>An error occured when displaying the videos you have recently uploaded</p>
           : <ul className="allVideosList">
             {allUploadedVideos ? Object.entries(allUploadedVideos).map(singleVideo => {
               const keyIdentifier = singleVideo[0];
               const data = singleVideo[1];
-              return <li key={keyIdentifier}>Date: {data.date} Moderator: {data.moderator}</li>
+              return <li key={keyIdentifier}>
+                <span>Date:</span> {data.date} <span>Moderator:</span> {data.moderator}
+                <VideoPreview videoUrl={"/videos/" + keyIdentifier + '.mov'} />
+              </li>
             }) : <p>Loading...</p>}
             {/* {console.log(allUploadedVideos)} */}
           </ul>}

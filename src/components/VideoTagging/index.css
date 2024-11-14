@@ -8,6 +8,14 @@
     background: #c4cfedb9;
 }
 
+#videoTaggingPage h3 {
+    margin: 1em;
+}
+
+#videoTaggingPage span {
+    font-weight: bold;
+}
+
 #videoTaggingPage #videoContainer {
     /* width: 25em; */
     background: transparent;
