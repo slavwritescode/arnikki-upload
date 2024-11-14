@@ -571,7 +571,7 @@ const Constants = {
         0: "Yes, I can read text holding the item 2.5ft away",
         1: "No, I cannot read the text without glasses",
     },
-    scenarions: {
+    scenarios: {
         0: "Undisguised",
         1: "Print Spoof",
         2: "Replay Spoof",

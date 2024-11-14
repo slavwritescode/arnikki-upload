@@ -44,19 +44,33 @@ const RegistrationPage = () => {
 
         const register = async () => {
             setIsRegistering(true);
-            const res = await backend('registerNewUser', { email: data.email, name: data.name, role: data.role });
+
+            const rawRes = await fetch('https://registeruser-mlapekco7q-uc.a.run.app', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "email": `${data.email}`,
+                    "name": `${data.name}`,
+                    "role": `${data.role}`,
+                    "password": "newpass1234"
+                })
+            });
+            const res = await rawRes.json();
+            //const res = await backend('registerUser', { email: data.email, name: data.name, role: data.role });
             console.log('this is the res', res);
-            if (res.data.message) {
+            if (res.message) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    footer: res.data.message
+                    footer: res.message
                 });
-            } else if (res.data.uid) {
-                const newUid = res.data.uid;
-                const name = res.data.name;
-                const role = res.data.role;
-                const userId = res.data.userId;
+            } else if (res.uid) {
+                const newUid = res.uid;
+                const name = res.name;
+                const role = res.role;
+                const userId = res.userId;
                 //lets change the dispatch location
                 // temp['role'] = role;
                 // temp['userId'] = userId;
@@ -64,6 +78,7 @@ const RegistrationPage = () => {
                 //todo
                 const write = await writeUserDataToDb(newUid, name, role, userId);
                 return write;
+
             }
         }
         register();

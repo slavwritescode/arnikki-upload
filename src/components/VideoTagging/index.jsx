@@ -26,6 +26,7 @@ const VideoTagging = () => {
   } = useForm();
 
   const dispath = useDispatch();
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith('video/')) {
@@ -52,7 +53,7 @@ const VideoTagging = () => {
       try {
         mainQuery = mainQuery.orderByChild('moderator').equalTo(userId);
         mainQuery.on('value', (data) => {
-          const videoData = data.val() || {};
+          const videoData = data.val() || null;
           setAllUploadedVideos(videoData);
         })
       } catch (error) {
@@ -79,7 +80,7 @@ const VideoTagging = () => {
                 <span>Date:</span> {data.date} <span>Moderator:</span> {data.moderator}
                 <VideoPreview videoUrl={"/videos/" + keyIdentifier + '.mov'} />
               </li>
-            }) : <p>Loading...</p>}
+            }) : <p>{"It appears you haven't uploaded recently. "}</p>}
             {/* {console.log(allUploadedVideos)} */}
           </ul>}
       </div>

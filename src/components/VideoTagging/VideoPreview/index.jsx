@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getFileUrl } from '../../../firebase/config';
 import { useForm } from "react-hook-form";
-
+import Constants from '../../Constants';
 import './index.css';
 
 const VideoPreview = ({ videoUrl }) => {
@@ -33,8 +33,12 @@ const VideoPreview = ({ videoUrl }) => {
             <button onClick={handleRemoveVideo}>Remove Video</button>
             <button onClick={confirmVideoUpload}>Confirm Video Upload</button>
         </div> */}
-        <form onSubmit={handleSubmit()}>
+        <form onSubmit={handleSubmit(review)}>
+            <select>
+                {console.log(Object.values(Constants['scenarios']))}
+                {Object.values(Constants['scenarios']).map((scenarioItem) => <option key={scenarioItem}>{scenarioItem}</option>)}
 
+            </select>
         </form>
     </div>)
 }
