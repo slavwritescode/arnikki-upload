@@ -8,16 +8,19 @@
     background: #c4cfedb9;
 }
 
-#videoTaggingPage #uploadVideoContainer {
+#videoTaggingPage #videoContainer {
     /* width: 25em; */
     background: transparent;
     padding: 2em;
-    text-align: center;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
     color: #1d3062;
 }
 
-#videoTaggingPage #uploadVideoContainer #uploadVideoInfoBlock {
+#videoTaggingPage #videoContainer li {
+    list-style: none;
+}
+
+#videoTaggingPage #videoContainer #videoInfoBlock {
     margin: 2em;
 }
 

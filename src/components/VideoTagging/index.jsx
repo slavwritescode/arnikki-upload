@@ -67,42 +67,19 @@ const VideoTagging = () => {
   return (
     <div id="videoTaggingPage">
       {/**have a list for all previous uploaded videos */}
-      <div id="allVideosByUserContainer">
+      <div id="videoContainer">
         <h3>All recently uploaded videos</h3>
         {error
           ? <p>An error occured when displaying the videos you have recently uploaded</p>
           : <ul className="allVideosList">
-            {Object.entries(allUploadedVideos).map(singleVideo => {
+            {allUploadedVideos ? Object.entries(allUploadedVideos).map(singleVideo => {
               const keyIdentifier = singleVideo[0];
               const data = singleVideo[1];
               return <li key={keyIdentifier}>Date: {data.date} Moderator: {data.moderator}</li>
-            })}
+            }) : <p>Loading...</p>}
+            {/* {console.log(allUploadedVideos)} */}
           </ul>}
       </div>
-      <div id="uploadVideoContainer">
-        {/**have a form for uploading a video */}
-        <VideoPreview videoUrl={videoUrl} handleRemoveVideo={removeFile} />
-        {videoFile && (
-          <div id="uploadVideoInfoBlock">
-            <p>Selected file: {videoFile.name}</p>
-            {/* <button type="button" onClick={removeFile}>Remove File</button> */}
-          </div>
-        )}
-        <form onChange={handleFileChange}>
-          {videoFile ? <div></div> : <><label htmlFor="video_file">Choose a file to upload</label>
-            <input
-              type="file"
-              id="video_file"
-              name="video_file"
-              accept="video/mov"
-              ref={fileName}
-            /></>}
-        </form>
-
-      </div>
-
-
-
     </div>
   )
 }
