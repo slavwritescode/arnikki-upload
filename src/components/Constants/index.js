@@ -570,6 +570,48 @@ const Constants = {
     visionCorrectionQuestion: {
         0: "Yes, I can read text holding the item 2.5ft away",
         1: "No, I cannot read the text without glasses",
+    },
+    scenarions: {
+        0: "Undisguised",
+        1: "Print Spoof",
+        2: "Replay Spoof",
+        3: "Cutout Spoof",
+        4: "Wall Portrait Spoof",
+        5: "Validation Photo",
+        6: "Wall Protrait Validation",
+        7: "Undisguised Validation",
+        8: "Print Spoof Validation",
+        9: "Replay Spoof Validation",
+        10: "Cutout Spoof Validation"
+    },
+    assetType: {
+        0: "How will this be handled???"
+    },
+    deviceHeight: {
+        0: "2.3ft",
+        1: "3.4ft"
+    },
+    approachAngle: {
+        0: "left",
+        1: "right",
+        2: "center"
+    },
+    lighting: {
+        0: "low",
+        1: "medium",
+        2: "bright"
+    },
+    clothing: {
+    //bear in mind that here multiple selections are probable so perhaps checkboxes
+        0: "tops",
+        1: "sweatshirt",
+        2: "jacket",
+        3: "dress",
+        4: "skirt",
+        5: "suit",
+        6: "sportswear",
+        7: "none",
+        8: "other"
     }
 }
 
