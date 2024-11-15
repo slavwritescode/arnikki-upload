@@ -88,7 +88,7 @@ const RegistrationPage = () => {
     return <div id="registrationPage">
         <div id="registrationContainer">
             <h3>Register new moderator</h3>
-            <form onSubmit={handleSubmit(handleRegistration)}>
+            <form onSubmit={handleSubmit(handleRegistration)} autoComplete="off">
                 <input
                     type="text"
                     placeholder="email"

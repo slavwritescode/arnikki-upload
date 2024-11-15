@@ -15,16 +15,19 @@ const VideoTagging = () => {
 
   useEffect(() => {
     const listAllVidoes = async () => {
-      console.log()
-      let mainQuery = realtimeDb.ref('/videos');
+      let videosRef = realtimeDb.ref(`/videos/${userId}`);
       //it is going to be equal to whatever the id
-      console.log('mainQuery before try catch', mainQuery);
+
       try {
-        mainQuery = mainQuery.orderByChild('moderator').equalTo(userId);
-        mainQuery.on('value', (data) => {
+        // mainQuery = mainQuery.orderByChild('moderator').equalTo(userId);
+        // mainQuery.on('value', (data) => {
+        //   const videoData = data.val() || null;
+        //   setAllUploadedVideos(videoData);
+        // })
+        videosRef.on('value', data => {
           const videoData = data.val() || null;
           setAllUploadedVideos(videoData);
-        })
+        });
       } catch (error) {
         setError(error.message);
       }
@@ -44,10 +47,12 @@ const VideoTagging = () => {
           : <ul className="allVideosList">
             {allUploadedVideos ? Object.entries(allUploadedVideos).map(singleVideo => {
               const keyIdentifier = singleVideo[0];
+
               const data = singleVideo[1];
+              console.log(data['video_id'], 'is the id')
               return <li key={keyIdentifier}>
                 <span>Date:</span> {data.date} <span>Moderator:</span> {data.moderator}
-                <VideoPreview videoUrl={"/videos/" + keyIdentifier + '.mov'} />
+                <VideoPreview videoUrl={"/videos/" + data['video_id'] + '.mov'} />
               </li>
             }) : <p>{"It appears you haven't uploaded recently. "}</p>}
             {/* {console.log(allUploadedVideos)} */}

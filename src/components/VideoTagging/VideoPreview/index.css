@@ -6,9 +6,15 @@
     margin: 1em 0;
 }
 
+#videoPreview .labelContainer {
+    display: flex;
+    flex-direction: column;
+}
+
 #videoPreview select {
     border: 0px;
     padding: .2em .5em;
+    margin: 1em;
     font-size: 1.1em;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
     color: #1d3062;

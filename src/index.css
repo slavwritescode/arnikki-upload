@@ -23,7 +23,7 @@ body {
   background-color: var(--body-color);
   color: var(--font-color);
   font-size: var(--font-size);
-  overflow: hidden;
+  /* overflow: scroll; */
 }
 
 body:has(#registrationForm) {
@@ -38,13 +38,14 @@ body:has(#registrationForm) {
 
   :root {
     overflow: hidden;
-    max-height: 100vh;
+    max-height: 100vh; 
     max-height: 100svh;
   }
 
   body {
     background-color: #E4E9F7;
     font-size: 11px;
+    /* overflow: scroll; */
   }
 
   #root {

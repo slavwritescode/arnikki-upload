@@ -29,9 +29,11 @@ function LoginPage({ setUserId }) {
                 console.log('email', data.email);
                 console.log('password', data.password);
                 console.log('auth', auth);
-                await signInWithEmailAndPassword(auth, data.email, data.password);
+                const respToLogin = await signInWithEmailAndPassword(auth, data.email, data.password);
+                console.log('resp is', respToLogin);
             }
         } catch (error) {
+            console.log(error, 'the error is')
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -88,7 +90,7 @@ function LoginPage({ setUserId }) {
 
         {!hidden && <div id="loginContainer">
             <h3>Login</h3>
-            <form onSubmit={handleSubmit(handleLogin)}>
+            <form onSubmit={handleSubmit(handleLogin)} autoComplete="off">
                 <input
                     type="text"
                     placeholder="email"
