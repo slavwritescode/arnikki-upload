@@ -1,6 +1,5 @@
 #videoPreview {
     display:flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 1em 0;
@@ -9,6 +8,54 @@
 #videoPreview .labelContainer {
     display: flex;
     flex-direction: column;
+}
+
+#videoPreview .controls fieldset {
+  border: 2px solid #fff; 
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#videoPreview .controls legend {
+    font-size: 1.2rem; 
+    font-weight: bold; 
+    color: #333;
+    padding: 0 8px; 
+}
+
+#videoPreview .controls div {
+    margin-bottom: 12px; 
+    display: flex; 
+    align-items: center; 
+}
+
+#videoPreview .controls input[type="checkbox"] {
+  appearance: none; 
+  width: 18px;
+  height: 18px;
+  margin-right: 8px; /* Space between checkbox and label */
+  border: 2px solid #fff; /* Border color for the checkbox */
+  border-radius: 4px; /* Slightly rounded corners */
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+#videoPreview .controls input[type="checkbox"]:checked {
+  background-color: rgba(75, 40, 109);/* Fill color when checked */
+  border-color: rgba(75, 40, 109);
+}
+
+#videoPreview .controls label {
+  font-size: 1rem; 
+  color: #555; 
+  cursor: pointer; 
+}
+
+#videoPreview .controls input[type="checkbox"]:hover {
+  border-color: #45a049; 
 }
 
 #videoPreview select {
@@ -20,6 +67,10 @@
     color: #1d3062;
     outline: none;
     text-align: center;
+}
+
+#videoPreview .controls {
+    padding: 2em;
 }
 
 #videoPreview #reviewButton {
