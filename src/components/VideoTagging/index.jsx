@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { realtimeDb } from "../../firebase/config";
 import { useSelector } from "react-redux";
 import VideoPreview from "./VideoPreview";
-
+import { formatDateTime } from "../../shared";
 
 import './index.css';
 
@@ -52,7 +52,7 @@ const VideoTagging = () => {
               const data = singleVideo[1];
               console.log(data['video_id'], 'is the id')
               return <li key={keyIdentifier}>
-                <span>Date:</span> {data.date} <span>Moderator:</span> {userId}
+                <span>Date:</span> {formatDateTime(data.date)} <span>Moderator:</span> {userId}
                 <VideoPreview videoUrl={"/videos/" + data['video_id'] + '.mov'} />
               </li>
             }) : <p>{"It appears you haven't uploaded recently. "}</p>}

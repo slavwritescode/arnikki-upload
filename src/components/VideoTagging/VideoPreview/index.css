@@ -35,6 +35,19 @@
     cursor: pointer;
 }
 
+#videoPreview #backButton {
+    padding: .5em 2em;
+    border: none;
+    border-radius: .5em;
+    background: #fff;;
+    color: rgba(75, 40, 109);
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
+    outline: none;
+    cursor: pointer;
+}
+
 #videoButtonsContainer {
     display: flex;
     gap: 2em;

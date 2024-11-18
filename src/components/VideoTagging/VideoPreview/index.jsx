@@ -30,7 +30,7 @@ const VideoPreview = ({ videoUrl }) => {
 
     return (<div id="videoPreview">
         {isClicked ? <>
-            <button onClick={() => setIsClicked(value => !value)}>Go back</button>
+            <button id="backButton" onClick={() => setIsClicked(value => !value)}>Go back</button>
             <video controls width="500" src={url} />
 
             <form onSubmit={handleSubmit(review)} autoComplete="off">
