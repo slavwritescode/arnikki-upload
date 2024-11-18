@@ -23,8 +23,9 @@
 }
 
 #videoPreview #reviewButton {
-    padding: .1em 1em;
+    padding: .5em 2em;
     border: none;
+    border-radius: .5em;
     background: rgba(75, 40, 109);
     color: #fff;
     font-size: 1.2em;
