@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import { getFileUrl } from '../../../firebase/config';
 import { useForm } from "react-hook-form";
 import Constants from '../../Constants';
+import { realtimeDb } from '../../../firebase/config';
+import { useSelector } from 'react-redux';
 import './index.css';
 
-const VideoPreview = ({ videoUrl }) => {
+const VideoPreview = ({ videoUrl, keyIdentifier }) => {
+    const userInfo = useSelector((state) => state.userInfo.value) || {};
+    const userId = userInfo['userId'];
     const [url, setUrl] = useState(null);
     const [isClicked, setIsClicked] = useState(false);
     const {
@@ -23,9 +27,36 @@ const VideoPreview = ({ videoUrl }) => {
         getSingleFile();
     }, [])
 
-    const review = (data) => {
+    const review = async (data, route) => {
         //todo
-        console.log(data);
+        console.log('special route is', route);
+
+        const { scenarios, deviceHeight, lighting, angle } = data;
+        const clothingSelections = Array.from(
+            document.querySelectorAll('input[type="checkbox"]:checked')
+        ).map((input) => input.value);
+        console.log('dump all values', scenarios, deviceHeight, lighting, angle, clothingSelections);
+
+        const labels = {
+            scenarios,
+            deviceHeight,
+            lighting,
+            angle,
+            clothing: clothingSelections,
+        };
+
+        const objectKey = route;
+        console.log(objectKey, 'is the object');
+        const path = `videos/${userId}/${objectKey}/labels`;
+
+        try {
+            // Send the update request
+            await realtimeDb.ref(path).set(labels);
+            console.log("Labels updated successfully!");
+        } catch (error) {
+            console.error("Error updating labels:", error);
+        }
+
     }
 
     return (<div id="videoPreview">
@@ -34,7 +65,7 @@ const VideoPreview = ({ videoUrl }) => {
             <video controls width="500" src={url} />
             <div className="controls">
                 <button id="backButton" onClick={() => setIsClicked(value => !value)}>Go back</button>
-                <form onSubmit={handleSubmit(review)} autoComplete="off">
+                <form onSubmit={handleSubmit((data) => review(data, keyIdentifier))} autoComplete="off">
                     <select
                         {...register("scenarios", {
                             required: true,
