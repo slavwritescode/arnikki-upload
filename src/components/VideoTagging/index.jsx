@@ -44,19 +44,24 @@ const VideoTagging = () => {
         {error
           ? <p>An error occured when displaying the videos you have recently uploaded</p>
           : <ul className="allVideosList">
-            {allUploadedVideos ? Object.entries(allUploadedVideos).map(singleVideo => {
-              const keyIdentifier = singleVideo[0];
-              console.log(keyIdentifier, 'is keyIdentifier')
-              const data = singleVideo[1];
-              console.log(data['video_id'], 'is the id')
-              return <li key={keyIdentifier}>
-                <span>Date:</span> {formatDateTime(data.date)} <span>Moderator:</span> {userId}
-                <VideoPreview
-                  videoUrl={"/videos/" + data['video_id'] + '.mov'}
-                  keyIdentifier={keyIdentifier}
-                />
-              </li>
-            }) : <p>{"It appears you haven't uploaded recently. "}</p>}
+            {allUploadedVideos ? Object.entries(allUploadedVideos)
+              .sort((a, b) => {
+                console.log('dates', a[1], b[1]);
+                return b[1].date - a[1].date
+              })
+              .map(singleVideo => {
+                const keyIdentifier = singleVideo[0];
+                console.log(keyIdentifier, 'is keyIdentifier')
+                const data = singleVideo[1];
+                console.log(data['video_id'], 'is the id')
+                return <li key={keyIdentifier}>
+                  <span>Date:</span> {formatDateTime(data.date)} <span>Moderator:</span> {userId}
+                  <VideoPreview
+                    videoUrl={"/videos/" + data['video_id'] + '.mov'}
+                    keyIdentifier={keyIdentifier}
+                  />
+                </li>
+              }) : <p>{"It appears you haven't uploaded recently. "}</p>}
             {/* {console.log(allUploadedVideos)} */}
           </ul>}
       </div>

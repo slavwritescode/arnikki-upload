@@ -72,7 +72,9 @@ const VideoPreview = ({ videoUrl, keyIdentifier }) => {
                             message: "Select a relevant scenario"
                         })}
                     >
-                        {Object.values(Constants['scenarios']).map((scenarioItem) => <option key={scenarioItem}>{scenarioItem}</option>)}
+                        {Object.values(Constants['scenarios'])
+                            .sort((a, b) => a.localeCompare(b))
+                            .map((scenarioItem) => <option key={scenarioItem}>{scenarioItem}</option>)}
                     </select>
                     <select
                         {...register("deviceHeight", {
@@ -80,7 +82,9 @@ const VideoPreview = ({ videoUrl, keyIdentifier }) => {
                             message: "Select a height"
                         })}
                     >
-                        {Object.values(Constants['deviceHeight']).map((deviceHeightItem) => <option key={deviceHeightItem}>{deviceHeightItem}</option>)}
+                        {Object.values(Constants['deviceHeight'])
+                            .sort((a, b) => a.localeCompare(b))
+                            .map((deviceHeightItem) => <option key={deviceHeightItem}>{deviceHeightItem}</option>)}
                     </select>
                     <select
                         {...register("lighting", {
@@ -88,7 +92,9 @@ const VideoPreview = ({ videoUrl, keyIdentifier }) => {
                             message: "Select a type of lighting"
                         })}
                     >
-                        {Object.values(Constants['lighting']).map((lightingItem) => <option key={lightingItem}>{lightingItem}</option>)}
+                        {Object.values(Constants['lighting'])
+                            .sort((a, b) => a.localeCompare(b))
+                            .map((lightingItem) => <option key={lightingItem}>{lightingItem}</option>)}
                     </select>
                     <select
                         {...register("angle", {
@@ -96,15 +102,19 @@ const VideoPreview = ({ videoUrl, keyIdentifier }) => {
                             message: "Select an approach angle"
                         })}
                     >
-                        {Object.values(Constants['approachAngle']).map((approachAngleItem) => <option key={approachAngleItem}>{approachAngleItem}</option>)}
+                        {Object.values(Constants['approachAngle'])
+                            .sort((a, b) => a.localeCompare(b))
+                            .map((approachAngleItem) => <option key={approachAngleItem}>{approachAngleItem}</option>)}
                     </select>
 
                     <fieldset>
                         <legend>Choose all clothing that applies</legend>
-                        {Object.values(Constants['clothing']).map(clothingItem => <div key={clothingItem}>
-                            <input type="checkbox" id={clothingItem} value={clothingItem} />
-                            <label htmlFor={clothingItem}>{clothingItem}</label>
-                        </div>)}
+                        {Object.values(Constants['clothing'])
+                            .sort((a, b) => a.localeCompare(b))
+                            .map(clothingItem => <div key={clothingItem}>
+                                <input type="checkbox" id={clothingItem} value={clothingItem} />
+                                <label htmlFor={clothingItem}>{clothingItem}</label>
+                            </div>)}
                     </fieldset>
                     <button type="submit" id="reviewButton">Confirm selections</button>
                 </form>
